@@ -1,5 +1,5 @@
 {
-  "name": "json-traverse",
+  "name": "@tsmx/json-traverse",
   "version": "1.0.0",
   "description": "Traverse and manipulate JSON objects.",
   "main": "json-traverse.js",
@@ -8,7 +8,9 @@
     "npm": ">=6.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,9 @@
     "traverse"
   ],
   "author": "tsmx <dev@tsmx.net>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "coveralls": "^3.1.0",
+    "jest": "^26.4.2"
+  }
 }
