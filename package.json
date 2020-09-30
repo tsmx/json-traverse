@@ -18,7 +18,10 @@
   },
   "keywords": [
     "JSON",
-    "traverse"
+    "traverse",
+    "manipulation",
+    "transformation",
+    "object"
   ],
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
