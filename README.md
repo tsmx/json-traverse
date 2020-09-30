@@ -82,7 +82,7 @@ jt.traverse(simpleObj, callbacks);
 // }
 ```
 
-### Example 3: convert a more complex to an collapsable HTML list
+### Example 3: convert a more complex object to a collapsable HTML list
 
 ```js
 const htmlObj = {
@@ -141,3 +141,27 @@ jt.traverse(htmlObj, callbacksHtmlList);
 // </ul>
 
 ```
+
+## Key-features
+
+- Define your own callbacks for
+  - Processing a value
+  - Entering a new nesting level
+  - Leaving nesting level
+- For every inspected value you will get rich meta-data
+  - key name
+  - level of nesting
+  - flag if it's an object root (root of a nested object)
+  - flag if it's an array item
+  - full path to the key as an array of path elements
+- Provides a callback function to change any value in-place (directly in the traversed object)
+- Supports deep inspection of
+  - Subobjects
+  - Arrays
+  - Arrays-in-Arrays
+  - Subobjects-in-Arrays
+- Optional array flattening (treat arrays as flat values)
+
+## API
+
+Coming soon...
