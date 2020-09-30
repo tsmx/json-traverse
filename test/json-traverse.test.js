@@ -6,47 +6,47 @@ describe('json-traverse test suite', () => {
     const originalConsoleLog = console.log;
     const testConsoleLog = (output) => { testOutput.push(output) };
 
-    const simpleTestObj = {
-        'MyValue': 'test',
-        'OtherValue': 'zzz',
-        'NumberValue': 311,
-        'MyArray': [1, 2, 3, 50, 60, 70]
-    };
-
-    const complexTestObj = {
-        'arr': [0, 0],
-        'arr-in-arr': [0, 1, ['two', 'three', [4, 5, 6]]],
-        'number': 123,
-        'string': 'ttt',
-        'parent': {
-            'test': 1,
-            'child': {
-                'childval': 777
-            },
-            'array': [1, 2, 66, 9, { 'array-ob-key': 'zzz', 'array-in-array': ['a', 'b', 'c'] }, 900]
-        },
-        'trail': 'testtesttest'
-    };
-
-    const htmlTestobj = {
-        'arr': [0, 0],
-        'arr-in-arr': [0, 1, ['two', 'three', [4, 5, 6]]],
-        'number': 123,
-        'string': 'test',
-        'parent': {
-            'test': 1,
-            'child': {
-                'childval': 777
-            },
-            'array': [1, 2, 66, 9, 900]
-        },
-        'trail': 'testtesttest'
-    };
+    var simpleTestObj = {};
+    var complexTestObj = {};
+    var htmlTestobj = {};
 
     beforeEach(() => {
+        simpleTestObj = {
+            'MyValue': 'test',
+            'OtherValue': 'zzz',
+            'NumberValue': 311,
+            'MyArray': [1, 2, 3, 50, 60, 70]
+        };
+        complexTestObj = {
+            'arr': [0, 0],
+            'arr-in-arr': [0, 1, ['two', 'three', [4, 5, 6]]],
+            'number': 123,
+            'string': 'ttt',
+            'parent': {
+                'test': 1,
+                'child': {
+                    'childval': 777
+                },
+                'array': [1, 2, 66, 9, { 'array-sub-key': 'zzz', 'array-in-array': ['a', 'b', 'c'] }, 900]
+            },
+            'trail': 'testtesttest'
+        };
+        htmlTestobj = {
+            'arr': [0, 0],
+            'arr-in-arr': [0, 1, ['two', 'three', [4, 5, 6]]],
+            'number': 123,
+            'string': 'test',
+            'parent': {
+                'test': 1,
+                'child': {
+                    'childval': 777
+                },
+                'array': [1, 2, 66, 9, 900]
+            },
+            'trail': 'testtesttest'
+        };
         console.log = testConsoleLog;
         testOutput = [];
-
     });
 
     afterEach(() => {
@@ -62,7 +62,7 @@ describe('json-traverse test suite', () => {
                 if (isArrayElement && parseInt(value) > 50) {
                     cbSetNewVal(100 * parseInt(value));
                 }
-            },
+            }
         };
         jt.traverse(simpleTestObj, callbacksChangeValue);
         expect(simpleTestObj.MyValue).toBe('MyNew-test');
@@ -116,7 +116,7 @@ describe('json-traverse test suite', () => {
         expect(testOutput[25]).toBe('1 parent.array._3 = 9');
         expect(testOutput[26]).toBe('1 parent.array._4 = [object Object]');
         expect(testOutput[27]).toBe('Entering level 2...');
-        expect(testOutput[28]).toBe('2 parent.array._4.array-ob-key = zzz');
+        expect(testOutput[28]).toBe('2 parent.array._4.array-sub-key = zzz');
         expect(testOutput[29]).toBe('2 parent.array._4.array-in-array._0 = a');
         expect(testOutput[30]).toBe('2 parent.array._4.array-in-array._1 = b');
         expect(testOutput[31]).toBe('2 parent.array._4.array-in-array._2 = c');
@@ -166,6 +166,66 @@ describe('json-traverse test suite', () => {
         expect(testOutput[13]).toBe('  </ul>');
         expect(testOutput[14]).toBe(' <li>Key: trail, Value: testtesttest</li>');
         expect(testOutput[15]).toBe('</ul>');
+        done();
+    });
+
+    it('tests a traversal with no callbacks for a simple object - nothing should happen', async (done) => {
+        const before = JSON.stringify(simpleTestObj);
+        jt.traverse(simpleTestObj);
+        const after = JSON.stringify(simpleTestObj)
+        expect(after).toBe(before);
+        expect(testOutput.length).toBe(0);
+        done();
+    });
+
+    it('tests a traversal with no callbacks for a complex object - nothing should happen', async (done) => {
+        const before = JSON.stringify(complexTestObj);
+        jt.traverse(complexTestObj);
+        const after = JSON.stringify(complexTestObj)
+        expect(after).toBe(before);
+        expect(testOutput.length).toBe(0);
+        done();
+    });
+
+    it('tests a manipulation of nested object in an array', async (done) => {
+        callbacksChangeValue = {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+                if (key == 'array-sub-key') {
+                    cbSetNewVal('ttt');
+                }
+            }
+        };
+        expect(complexTestObj.parent.array[4]['array-sub-key']).toBe('zzz');
+        jt.traverse(complexTestObj, callbacksChangeValue);
+        expect(complexTestObj.parent.array[4]['array-sub-key']).toBe('ttt');
+        done();
+    });
+
+    it('tests a complete exchange of nested object in an array', async (done) => {
+        callbacksChangeValue = {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+                if (isArrayElement && isObjectRoot) {
+                    cbSetNewVal({ objname: 'new-object' });
+                }
+            }
+        };
+        expect(JSON.stringify(complexTestObj.parent.array[4])).toBe(JSON.stringify({ "array-sub-key": "zzz", "array-in-array": ["a", "b", "c"] }));
+        jt.traverse(complexTestObj, callbacksChangeValue);
+        expect(JSON.stringify(complexTestObj.parent.array[4])).toBe(JSON.stringify({ objname: 'new-object' }));
+        done();
+    });
+
+    it('tests a complete exchange of nested object', async (done) => {
+        callbacksChangeValue = {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+                if (key == 'child' && !isArrayElement && isObjectRoot) {
+                    cbSetNewVal({ objname: 'new-object' });
+                }
+            }
+        };
+        expect(JSON.stringify(complexTestObj.parent.child)).toBe(JSON.stringify({ childval: 777 }));
+        jt.traverse(complexTestObj, callbacksChangeValue);
+        expect(JSON.stringify(complexTestObj.parent.child)).toBe(JSON.stringify({ objname: 'new-object' }));
         done();
     });
 
