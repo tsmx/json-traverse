@@ -82,7 +82,7 @@ jt.traverse(simpleObj, callbacks);
 // }
 ```
 
-### Example 3: convert a more complex object to a collapsable HTML list
+### Example 3: convert a more complex object to a collapsible HTML list
 
 ```js
 const htmlObj = {
@@ -248,7 +248,7 @@ For deep-inspected arrays the path would contain the name of the array itself wh
 }
 ```
 
-When processeing the array the keys would be `_0`, `_1` and `_2` and the path would always be `['child', 'subchild', 'array']`.
+When processing the array the keys would be `_0`, `_1` and `_2` and the path would always be `['child', 'subchild', 'array']`.
 
 ###### isObjectRoot
 
