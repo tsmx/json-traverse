@@ -19,9 +19,12 @@
   "keywords": [
     "JSON",
     "traverse",
+    "iterate",
     "manipulation",
     "transformation",
-    "object"
+    "object",
+    "callback",
+    "deep-inspection"
   ],
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
