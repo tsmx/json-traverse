@@ -184,9 +184,15 @@ An Object containing the callback functions that should be applied while travers
 
 ```js
 callbacks = {
-    processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => { /* your logic here */ },
-    enterLevel: (level, path) => { /* your logic here */ },
-    exitLevel: (level, path) => { /* your logic here */ }
+    processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => { 
+            /* your logic here */ 
+        },
+    enterLevel: (level, path) => { 
+            /* your logic here */ 
+        },
+    exitLevel: (level, path) => { 
+            /* your logic here */ 
+        }
 };
 ```
 
