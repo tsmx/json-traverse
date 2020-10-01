@@ -122,7 +122,7 @@ const callbacksHtmlList = {
 
 const jt = require('@tsmx/json-traverse');
 
-jt.traverse(htmlObj, callbacksHtmlList);
+jt.traverse(htmlObj, callbacksHtmlList, true);
 
 // <ul>
 //  <li>Key: MyArray, Value: 0,0</li>
