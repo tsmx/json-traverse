@@ -43,8 +43,8 @@ function traverse(obj, callbacks = null, flattenArray = false, level = 0, path =
             }
         }
     });
-    if (callbacks && callbacks.leaveLevel) {
-        callbacks.leaveLevel(level, path);
+    if (callbacks && callbacks.exitLevel) {
+        callbacks.exitLevel(level, path);
     }
 };
 

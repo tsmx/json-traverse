@@ -55,12 +55,12 @@ describe('json-traverse test suite', () => {
 
     it('tests a manipulation of plain properties and array entries', async (done) => {
         callbacksChangeValue = {
-            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key.startsWith('My')) {
-                    cbSetNewVal('MyNew-' + value);
+                    cbSetValue('MyNew-' + value);
                 }
                 if (isArrayElement && parseInt(value) > 50) {
-                    cbSetNewVal(100 * parseInt(value));
+                    cbSetValue(100 * parseInt(value));
                 }
             }
         };
@@ -84,7 +84,7 @@ describe('json-traverse test suite', () => {
                 console.log(level + ' ' + (path.length > 0 ? (path.join('.') + '.') : '') + key + ' = ' + value);
             },
             enterLevel: (level, path) => { console.log('Entering level ' + level + '...'); },
-            leaveLevel: (level, path) => { console.log('Leaving level ' + level + '...'); }
+            exitLevel: (level, path) => { console.log('Leaving level ' + level + '...'); }
         };
         jt.traverse(complexTestObj, callbacks);
         expect(testOutput.length).toBe(37);
@@ -146,7 +146,7 @@ describe('json-traverse test suite', () => {
                     console.log(('  ').repeat(level) + '<ul class=\"nested\">');
                 };
             },
-            leaveLevel: (level, path) => { console.log(('  ').repeat(level) + '</ul>'); }
+            exitLevel: (level, path) => { console.log(('  ').repeat(level) + '</ul>'); }
         };
         jt.traverse(htmlTestobj, callbacksHtml, true);
         expect(testOutput.length).toBe(16);
@@ -189,9 +189,9 @@ describe('json-traverse test suite', () => {
 
     it('tests a manipulation of nested object in an array', async (done) => {
         callbacksChangeValue = {
-            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key == 'array-sub-key') {
-                    cbSetNewVal('ttt');
+                    cbSetValue('ttt');
                 }
             }
         };
@@ -203,9 +203,9 @@ describe('json-traverse test suite', () => {
 
     it('tests a complete exchange of nested object in an array', async (done) => {
         callbacksChangeValue = {
-            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (isArrayElement && isObjectRoot) {
-                    cbSetNewVal({ objname: 'new-object' });
+                    cbSetValue({ objname: 'new-object' });
                 }
             }
         };
@@ -217,9 +217,9 @@ describe('json-traverse test suite', () => {
 
     it('tests a complete exchange of nested object', async (done) => {
         callbacksChangeValue = {
-            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetNewVal) => {
+            processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key == 'child' && !isArrayElement && isObjectRoot) {
-                    cbSetNewVal({ objname: 'new-object' });
+                    cbSetValue({ objname: 'new-object' });
                 }
             }
         };
