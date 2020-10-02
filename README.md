@@ -10,6 +10,28 @@
 
 ## Usage
 
+### Basic usage
+
+```js
+const jt = require('@tsmx/json-traverse');
+
+const callbacks = {
+    processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => { 
+            /* your logic here */ 
+        },
+    enterLevel: (level, path) => { 
+            /* your logic here */ 
+        },
+    exitLevel: (level, path) => { 
+            /* your logic here */ 
+        }
+};
+
+var obj = { /* your JSON object */ };
+
+jt.traverse(obj, callbacks);
+```
+
 ### Example 1: print out a simple object
 
 ```js
@@ -85,7 +107,7 @@ jt.traverse(simpleObj, callbacks);
 ### Example 3: convert a more complex object to a collapsible HTML list
 
 ```js
-const htmlObj = {
+var htmlObj = {
     MyArray: [0, 0],
     ArrayInArry: [0, 1, ['two', 'three', [4, 5, 6]]],
     MyNumber: 123,
@@ -248,7 +270,7 @@ For deep-inspected arrays the path would contain the name of the array itself wh
 }
 ```
 
-When processing the array the keys would be `_0`, `_1` and `_2` and the path would always be `['child', 'subchild', 'array']`.
+When processing the array the keys would be `_0`, `_1` and `_2` and the path would always be `['child', 'subchild', 'myvalues']`.
 
 ###### isObjectRoot
 
