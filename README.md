@@ -1,4 +1,4 @@
-# [**json-traverse**](https://github.com/tsmx/json-traverse)
+# [**@tsmx/json-traverse**](https://github.com/tsmx/json-traverse)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![npm (scoped)](https://img.shields.io/npm/v/@tsmx/json-traverse)
