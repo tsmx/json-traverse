@@ -46,6 +46,6 @@ function traverse(obj, callbacks = null, flattenArray = false, level = 0, path =
     if (callbacks && callbacks.exitLevel) {
         callbacks.exitLevel(level, path);
     }
-};
+}
 
 module.exports.traverse = traverse;
