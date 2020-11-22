@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![npm (scoped)](https://img.shields.io/npm/v/@tsmx/json-traverse)
 ![node-current (scoped)](https://img.shields.io/node/v/@tsmx/json-traverse)
-[![Build Status](https://travis-ci.com/tsmx/json-traverse.svg?branch=master)](https://travis-ci.org/tsmx/json-traverse)
+[![Build Status](https://img.shields.io/github/workflow/status/tsmx/json-traverse/git-ci-build)](https://img.shields.io/github/workflow/status/tsmx/json-traverse/git-ci-build)
 [![Coverage Status](https://coveralls.io/repos/github/tsmx/json-traverse/badge.svg?branch=master)](https://coveralls.io/github/tsmx/json-traverse?branch=master)
 
 > Traverse and manipulate JSON objects.
@@ -109,7 +109,7 @@ jt.traverse(simpleObj, callbacks);
 ```js
 var htmlObj = {
     MyArray: [0, 0],
-    ArrayInArry: [0, 1, ['two', 'three', [4, 5, 6]]],
+    ArrayInArray: [0, 1, ['two', 'three', [4, 5, 6]]],
     MyNumber: 123,
     MyString: 'test',
     Child: {
@@ -148,7 +148,7 @@ jt.traverse(htmlObj, callbacksHtmlList, true);
 
 // <ul>
 //  <li>Key: MyArray, Value: 0,0</li>
-//  <li>Key: ArrayInArry, Value: 0,1,two,three,4,5,6</li>
+//  <li>Key: ArrayInArray, Value: 0,1,two,three,4,5,6</li>
 //  <li>Key: MyNumber, Value: 123</li>
 //  <li>Key: MyString, Value: test</li>
 //  <li class="caret">Key: Child</li>
