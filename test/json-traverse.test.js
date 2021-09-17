@@ -53,7 +53,7 @@ describe('json-traverse test suite', () => {
         console.log = originalConsoleLog;
     });
 
-    it('tests a manipulation of plain properties and array entries', async (done) => {
+    it('tests a manipulation of plain properties and array entries', async () => {
         callbacksChangeValue = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key.startsWith('My')) {
@@ -75,10 +75,9 @@ describe('json-traverse test suite', () => {
         expect(simpleTestObj.MyArray[3]).toBe(50);
         expect(simpleTestObj.MyArray[4]).toBe(6000);
         expect(simpleTestObj.MyArray[5]).toBe(7000);
-        done();
     });
 
-    it('tests a full traversal of a complex JSON object', async (done) => {
+    it('tests a full traversal of a complex JSON object', async () => {
         callbacks = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement) => {
                 console.log(level + ' ' + (path.length > 0 ? (path.join('.') + '.') : '') + key + ' = ' + value);
@@ -125,10 +124,9 @@ describe('json-traverse test suite', () => {
         expect(testOutput[34]).toBe('Leaving level 1...');
         expect(testOutput[35]).toBe('0 trail = testtesttest');
         expect(testOutput[36]).toBe('Leaving level 0...');
-        done();
     });
 
-    it('tests a conversion to a HTML list of a complex JSON object', async (done) => {
+    it('tests a conversion to a HTML list of a complex JSON object', async () => {
         callbacksHtml = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement) => {
                 if (isObjectRoot) {
@@ -166,28 +164,25 @@ describe('json-traverse test suite', () => {
         expect(testOutput[13]).toBe('  </ul>');
         expect(testOutput[14]).toBe(' <li>Key: trail, Value: testtesttest</li>');
         expect(testOutput[15]).toBe('</ul>');
-        done();
     });
 
-    it('tests a traversal with no callbacks for a simple object - nothing should happen', async (done) => {
+    it('tests a traversal with no callbacks for a simple object - nothing should happen', async () => {
         const before = JSON.stringify(simpleTestObj);
         jt.traverse(simpleTestObj);
         const after = JSON.stringify(simpleTestObj)
         expect(after).toBe(before);
         expect(testOutput.length).toBe(0);
-        done();
     });
 
-    it('tests a traversal with no callbacks for a complex object - nothing should happen', async (done) => {
+    it('tests a traversal with no callbacks for a complex object - nothing should happen', async () => {
         const before = JSON.stringify(complexTestObj);
         jt.traverse(complexTestObj);
         const after = JSON.stringify(complexTestObj)
         expect(after).toBe(before);
         expect(testOutput.length).toBe(0);
-        done();
     });
 
-    it('tests a manipulation of nested object in an array', async (done) => {
+    it('tests a manipulation of nested object in an array', async () => {
         callbacksChangeValue = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key == 'array-sub-key') {
@@ -198,10 +193,9 @@ describe('json-traverse test suite', () => {
         expect(complexTestObj.parent.array[4]['array-sub-key']).toBe('zzz');
         jt.traverse(complexTestObj, callbacksChangeValue);
         expect(complexTestObj.parent.array[4]['array-sub-key']).toBe('ttt');
-        done();
     });
 
-    it('tests a complete exchange of nested object in an array', async (done) => {
+    it('tests a complete exchange of nested object in an array', async () => {
         callbacksChangeValue = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (isArrayElement && isObjectRoot) {
@@ -212,10 +206,9 @@ describe('json-traverse test suite', () => {
         expect(JSON.stringify(complexTestObj.parent.array[4])).toBe(JSON.stringify({ "array-sub-key": "zzz", "array-in-array": ["a", "b", "c"] }));
         jt.traverse(complexTestObj, callbacksChangeValue);
         expect(JSON.stringify(complexTestObj.parent.array[4])).toBe(JSON.stringify({ objname: 'new-object' }));
-        done();
     });
 
-    it('tests a complete exchange of nested object', async (done) => {
+    it('tests a complete exchange of nested object', async () => {
         callbacksChangeValue = {
             processValue: (key, value, level, path, isObjectRoot, isArrayElement, cbSetValue) => {
                 if (key == 'child' && !isArrayElement && isObjectRoot) {
@@ -226,7 +219,6 @@ describe('json-traverse test suite', () => {
         expect(JSON.stringify(complexTestObj.parent.child)).toBe(JSON.stringify({ childval: 777 }));
         jt.traverse(complexTestObj, callbacksChangeValue);
         expect(JSON.stringify(complexTestObj.parent.child)).toBe(JSON.stringify({ objname: 'new-object' }));
-        done();
     });
 
 });
