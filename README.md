@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![npm (scoped)](https://img.shields.io/npm/v/@tsmx/json-traverse)
 ![node-current (scoped)](https://img.shields.io/node/v/@tsmx/json-traverse)
-[![Build Status](https://img.shields.io/github/workflow/status/tsmx/json-traverse/git-ci-build)](https://img.shields.io/github/workflow/status/tsmx/json-traverse/git-ci-build)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tsmx/json-traverse/git-build.yml?branch=master)](https://img.shields.io/github/actions/workflow/status/tsmx/json-traverse/git-build.yml?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/tsmx/json-traverse/badge.svg?branch=master)](https://coveralls.io/github/tsmx/json-traverse?branch=master)
 
 > Traverse and manipulate JSON objects.
