@@ -1,6 +1,6 @@
 {
   "name": "@tsmx/json-traverse",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Traverse and manipulate JSON objects.",
   "main": "json-traverse.js",
   "engines": {
