@@ -28,10 +28,10 @@
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
-    "eslint": "^9.22.0",
-    "eslint-plugin-jest": "^28.11.0",
-    "globals": "^16.0.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.1",
+    "eslint-plugin-jest": "^29.15.0",
+    "globals": "^17.0.0",
     "jest": "^30.0.5"
   }
 }
